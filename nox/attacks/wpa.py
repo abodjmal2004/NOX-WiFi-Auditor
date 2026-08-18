@@ -45,12 +45,17 @@ class WPAAttack:
         return "1 handshake" in result.stdout
 
     def crack(self, cap_path, wordlist=None):
-        if not wordlist: wordlist = Config.DEFAULT_WORDLIST
-        if not os.path.exists(wordlist):
-            print_error(f"Wordlist {wordlist} not found.")
-            return
+        if not wordlist:
+            # Try custom wordlist first, then fallback
+            if os.path.exists(Config.DEFAULT_WORDLIST):
+                wordlist = Config.DEFAULT_WORDLIST
+            elif os.path.exists(Config.FALLBACK_WORDLIST):
+                wordlist = Config.FALLBACK_WORDLIST
+            else:
+                print_error("No wordlists found (checked test_wordlist.txt and rockyou.txt).")
+                return
         
-        print_status("Starting cracking process...")
+        print_status(f"Starting cracking process using: {wordlist}")
         subprocess.run([
             'aircrack-ng', '-w', wordlist,
             '-b', self.target.bssid,

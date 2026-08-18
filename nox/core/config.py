@@ -4,7 +4,8 @@ class Config:
     VERSION = "1.0.0"
     AUTHOR = "Manus AI & User"
     OUTPUT_DIR = "nox_captures"
-    DEFAULT_WORDLIST = "/usr/share/wordlists/rockyou.txt"
+    DEFAULT_WORDLIST = "test_wordlist.txt"
+    FALLBACK_WORDLIST = "/usr/share/wordlists/rockyou.txt"
     LOG_FILE = os.path.join(OUTPUT_DIR, "nox.log")
     TEMP_DIR = "/tmp/nox"
     
