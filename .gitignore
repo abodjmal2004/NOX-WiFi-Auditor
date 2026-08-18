@@ -1,0 +1,7 @@
+nox_captures/
+*.pyc
+__pycache__/
+.DS_Store
+*.log
+*.cap
+*.pcapng
