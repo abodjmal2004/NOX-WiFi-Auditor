@@ -117,7 +117,23 @@ class NoxApp:
                         self.db.save_handshake(target.bssid, target.essid, cap)
                     input(f"\n{Colors.BLUE}Attack finished. Press Enter to return to menu...{Colors.END}")
                 elif attack_choice == '4':
-                    eviltwin = EvilTwinAttack(mon_iface, target)
+                    deauth_iface = mon_iface
+                    other_ifaces = [i for i in self.iface_manager.get_interfaces() if i != mon_iface]
+                    
+                    if other_ifaces:
+                        print(f"{Colors.YELLOW}[?] A second interface is available. Use it for Deauthentication? (y/n){Colors.END}")
+                        ans = input(f"{Colors.CYAN}NOX > {Colors.END}")
+                        if ans.lower() == 'y':
+                            print(f"{Colors.YELLOW}Select Deauth Interface:{Colors.END}")
+                            for i, iface in enumerate(other_ifaces):
+                                print(f" {i+1}) {iface}")
+                            try:
+                                d_choice = int(input(f"\n{Colors.CYAN}NOX > {Colors.END}")) - 1
+                                deauth_iface = self.iface_manager.enable_monitor_mode(other_ifaces[d_choice])
+                            except:
+                                pass
+                    
+                    eviltwin = EvilTwinAttack(mon_iface, target, deauth_interface=deauth_iface)
                     password = eviltwin.start()
                     if password:
                         self.db.save_password(target.bssid, target.essid, password)
