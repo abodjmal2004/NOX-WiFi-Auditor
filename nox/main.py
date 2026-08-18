@@ -5,6 +5,7 @@ from .core.config import Config
 from .interface.manager import InterfaceManager
 from .scanner.airodump import AirodumpScanner
 from .attacks.wpa import WPAAttack
+from .attacks.decloak import DecloakAttack
 
 class NoxApp:
     def __init__(self):
@@ -47,6 +48,7 @@ class NoxApp:
 
         if not scanner.targets:
             print_error("No targets found.")
+            self.iface_manager.disable_monitor_mode()
             return
 
         try:
@@ -54,27 +56,44 @@ class NoxApp:
             target = scanner.targets[target_choice]
         except (ValueError, IndexError, KeyboardInterrupt):
             print_error("Exiting.")
+            self.iface_manager.disable_monitor_mode()
             return
 
-        # Attack Menu
-        clear_screen()
-        print(f"{Colors.GREEN}Target: {target.essid} [{target.bssid}]{Colors.END}")
-        print("\n1) WPA Handshake Attack")
-        print("2) Exit")
-        
-        try:
-            attack_choice = input(f"\n{Colors.CYAN}NOX > {Colors.END}")
-            if attack_choice == '1':
-                wpa = WPAAttack(mon_iface, target)
-                cap = wpa.capture_handshake()
-                if cap:
-                    ans = input(f"{Colors.YELLOW}Crack now? (y/n): {Colors.END}")
-                    if ans.lower() == 'y':
-                        wpa.crack(cap)
-        except KeyboardInterrupt:
-            pass
-        
+        self.run_attack_menu(mon_iface, target)
         self.iface_manager.disable_monitor_mode()
+
+    def run_attack_menu(self, mon_iface, target):
+        while True:
+            clear_screen()
+            if target.essid == "<Hidden>":
+                print(f"{Colors.YELLOW}Target is a Hidden Network! [{target.bssid}]{Colors.END}")
+                print("\n0) Reveal Hidden SSID (Decloak)")
+            else:
+                print(f"{Colors.GREEN}Target: {target.essid} [{target.bssid}]{Colors.END}")
+                
+            print("1) WPA Handshake Attack")
+            print("2) Exit to Main Menu")
+            
+            try:
+                attack_choice = input(f"\n{Colors.CYAN}NOX > {Colors.END}")
+                if attack_choice == '0' and target.essid == "<Hidden>":
+                    decloak = DecloakAttack(mon_iface, target)
+                    new_essid = decloak.reveal()
+                    if new_essid != "<Hidden>":
+                        target.essid = new_essid
+                        input(f"{Colors.GREEN}SSID Revealed! Press Enter to continue...{Colors.END}")
+                elif attack_choice == '1':
+                    wpa = WPAAttack(mon_iface, target)
+                    cap = wpa.capture_handshake()
+                    if cap:
+                        ans = input(f"{Colors.YELLOW}Crack now? (y/n): {Colors.END}")
+                        if ans.lower() == 'y':
+                            wpa.crack(cap)
+                    input(f"\n{Colors.BLUE}Attack finished. Press Enter to return to menu...{Colors.END}")
+                elif attack_choice == '2':
+                    break
+            except KeyboardInterrupt:
+                break
 
 if __name__ == "__main__":
     app = NoxApp()
