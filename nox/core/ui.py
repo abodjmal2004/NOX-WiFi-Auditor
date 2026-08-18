@@ -11,6 +11,8 @@ LOGO = f"""{Colors.CYAN}{Colors.BOLD}
 {Colors.END}{Colors.WHITE}
     [ NOX WiFi Auditor - v1.0 ]
     [ Automated Pentesting Framework ]
+    [ Developer: Abod jamal ]
+    [ Telegram: https://t.me/G0C_C ]
 {Colors.END}
 """
 

