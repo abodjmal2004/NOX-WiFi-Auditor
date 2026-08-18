@@ -1,15 +1,12 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/NOX-WiFi--Auditor-blue?style=for-the-badge&logo=wi-fi&logoColor=white" alt="NOX Logo">
+  <img src="assets/nox_animated_gif.gif" alt="NOX WiFi Auditor Banner" width="800">
 </p>
 
-<h1 align="center">
-  ███╗   ██╗ ██████╗ ██╗  ██╗<br>
-  ████╗  ██║██╔═══██╗╚██╗██╔╝<br>
-  ██╔██╗ ██║██║   ██║ ╚███╔╝ <br>
-  ██║╚██╗██║██║   ██║ ██╔██╗ <br>
-  ██║ ╚████║╚██████╔╝██╔╝ ██╗<br>
-  ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝
-</h1>
+<p align="center">
+  <img src="https://img.shields.io/badge/NOX-WiFi--Auditor-blue?style=for-the-badge&logo=wi-fi&logoColor=white" alt="NOX Badge">
+  <img src="https://img.shields.io/github/license/abodjmal2004/NOX-WiFi-Auditor?style=for-the-badge" alt="License">
+  <img src="https://img.shields.io/github/stars/abodjmal2004/NOX-WiFi-Auditor?style=for-the-badge" alt="Stars">
+</p>
 
 <p align="center">
   <strong>Advanced Modular Wireless Auditing Framework</strong><br>
@@ -17,9 +14,6 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/abodjmal2004/NOX-WiFi-Auditor?style=flat-square" alt="License">
-  <img src="https://img.shields.io/github/stars/abodjmal2004/NOX-WiFi-Auditor?style=flat-square" alt="Stars">
-  <img src="https://img.shields.io/github/forks/abodjmal2004/NOX-WiFi-Auditor?style=flat-square" alt="Forks">
   <img src="https://img.shields.io/badge/Python-3.8+-blue.svg?style=flat-square&logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/Platform-Linux-lightgrey.svg?style=flat-square&logo=linux&logoColor=white" alt="Platform">
 </p>
@@ -28,9 +22,11 @@
 
 ## 📖 Overview
 
-**NOX WiFi Auditor** is a professional-grade, modular wireless security framework designed for automated penetration testing. It bridges the gap between classic tools and modern automation, providing a stable, extensible, and high-performance environment for auditing WPA/WPA2/WPA3 networks.
+<p align="center">
+  <img src="assets/logo.png" alt="NOX Owl Logo" width="200">
+</p>
 
-Built with a **Modular Architecture** similar to industry standards, NOX allows for seamless integration of various attack vectors, intelligent interface management, and persistent data logging via SQLite.
+**NOX WiFi Auditor** is a professional-grade, modular wireless security framework designed for automated penetration testing. It bridges the gap between classic tools and modern automation, providing a stable, extensible, and high-performance environment for auditing WPA/WPA2/WPA3 networks.
 
 ---
 
@@ -59,9 +55,10 @@ NOX-WiFi-Auditor/
 │   ├── core/       # Configuration, Database, and UI logic
 │   ├── interface/  # Wireless hardware management
 │   ├── scanner/    # Network discovery and analysis
-│   ├── attacks/    # Attack vector implementations (WPA, EvilTwin, etc.)
+│   ├── attacks/    # Attack vector implementations
 │   ├── models/     # Data objects and models
 │   └── tools/      # External tool wrappers
+├── assets/         # Project visual assets (GIFs, Logos)
 ├── nox-auditor.py  # Main entry point (Launcher)
 ├── test_wordlist.txt # Fast-track testing dictionary
 └── README.md       # Professional Documentation
@@ -91,16 +88,11 @@ sudo apt update && sudo apt install aircrack-ng wireless-tools hcxdumptool reave
 
 ## 🎮 Usage
 
-Launch the framework with root privileges to grant full hardware access:
+Launch the framework with root privileges:
 
 ```bash
 sudo python3 nox-auditor.py
 ```
-
-1. **Select Interface**: Choose your wireless adapter.
-2. **Scan**: Monitor live targets and identify vulnerabilities.
-3. **Attack**: Select a target ID and choose your preferred attack vector.
-4. **Result**: Check `nox_captures/` or the SQLite database for results.
 
 ---
 
