@@ -1,0 +1,5 @@
+# NOX WiFi Auditor Requirements
+# Most tools are external binaries, but Python needs:
+# (Currently using standard libraries only, but adding placeholders for future expansion)
+# requests
+# scapy

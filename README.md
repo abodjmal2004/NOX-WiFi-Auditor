@@ -51,11 +51,19 @@ cd NOX-WiFi-Auditor
 
 ## Usage
 
-Run the script with root privileges (`sudo` is required for raw socket access and wireless card manipulation):
+Run the launcher script with root privileges:
 
 ```bash
-sudo python3 nox.py
+sudo python3 nox-auditor.py
 ```
+
+### Project Structure
+- `nox/core/`: Core logic, UI, and configuration.
+- `nox/interface/`: Wireless interface management (Monitor Mode).
+- `nox/scanner/`: Network discovery modules.
+- `nox/attacks/`: Specific attack implementation (WPA, PMKID, etc.).
+- `nox/models/`: Data models for targets and clients.
+
 
 ---
 
